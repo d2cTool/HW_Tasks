@@ -42,8 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonClass.cs" />
+    <Compile Include="IIterator.cs" />
     <Compile Include="MyNode.cs" />
     <Compile Include="MyQueue.cs" />
+    <Compile Include="MyQueueIterator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

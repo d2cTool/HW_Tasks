@@ -7,16 +7,21 @@ namespace MyFirstLib
     {
         MyNode<T> first;
         MyNode<T> last;
-        public int Count { get; private set; }
+        int count;
 
-        public MyQueue()
-        {
-            
-        }
+        public MyQueue() { }
 
         public MyQueue(IEnumerable<T> collection)
         {
+            foreach (var item in collection)
+            {
+                Enqueue(item);
+            }
+        }
 
+        public MyQueueIterator<T> GetIterator()
+        {
+            return new MyQueueIterator<T>(this);
         }
 
         public void Enqueue(T element)
