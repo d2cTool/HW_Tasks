@@ -44,6 +44,7 @@ namespace CalcApp
                     stack.Push(GetCommand(ch)(x, y));
                 }
             }
+
             double res = stack.Pop();
             return res;
         }
