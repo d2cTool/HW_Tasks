@@ -1,10 +1,10 @@
 # HW_Tasks
 
-##Task 1
+## Task 1
 
 
-##Task 2
-Objective: 
+## Task 2
+### Objective: 
 • understand delegate usage scenarios; 
 • understand the relationship delegates versus interfaces; 
 • understand callback functions; 
@@ -13,7 +13,7 @@ Objective:
 • understand difference between events and delegates; 
 • understand DRY (Don't Repeat Yourself), SoC (Separation of Concerns principles), Low Coupling principles; 
 • understand standard event delegate pattern. 
-Tasks 
+### Tasks 
 1. Create a console application. 
 2. Create a class, which allows to bubble-sort a matrix of integers (do not use System.Array methods) in order to arrange matrix rows: 
 • in ascending (descending) order of sums of matrix row elements 
