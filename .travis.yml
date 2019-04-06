@@ -1,0 +1,4 @@
+language: csharp
+solution: HW_Tasks.sln
+mono: 
+  -latest
