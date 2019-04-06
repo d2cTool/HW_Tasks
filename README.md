@@ -1,5 +1,4 @@
-# HW_Tasks
-
+# HW_Tasks [![Build Status](https://travis-ci.com/d2cTool/HW_Tasks.svg?branch=master)](https://travis-ci.com/d2cTool/HW_Tasks)
 ## Task 1
 1. Create a class library 
 2. Implement a BinarySearch generic method (do not use the type constraints). 
