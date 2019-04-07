@@ -6,8 +6,9 @@ namespace CalcApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(PolishNotationParser.Parse("5 1 2 + 4 * + 3 -"));
-            Console.WriteLine(PolishNotationParser.Parse("1 3+"));
+            PolishNotationParser parser = new PolishNotationParser();
+            Console.WriteLine(parser.Parse("5 1 2 + 4 * + 3 -"));
+            Console.WriteLine(parser.Parse("1 3+"));
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ConsoleApp
             Print(CommonClass.FibonacciCalc(0));
             Print(CommonClass.FibonacciCalc(1));
             Print(CommonClass.FibonacciCalc(2));
-
+            Print(CommonClass.FibonacciCalc(12));
 
             Console.WriteLine("Set operations:");
             MySet<int> set = new MySet<int>(arr1);

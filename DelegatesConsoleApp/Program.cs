@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DelegatesConsoleApp
 {
@@ -7,25 +8,24 @@ namespace DelegatesConsoleApp
     {
         static void Main(string[] args)
         {
-            int[,] m = { { 1 }, { 2 } };
-            int[,] mm = { { 25, 22 }, { 10, 16 } };
+            int[,] mm = { { 25, 15 }, { 10, 16 } };
             int[,] mas = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }, { 10, 11, 12 } };
 
             var comp = Comparer<int>.Create((x, y) => x.CompareTo(y));
 
-            BubbleSorter bubbleSorter = new BubbleSorter(m, comp);
+            BubbleSorter.Sort(mm, comp, (int[] arr)=>arr.Min(), false);
+            BubbleSorter.Print(mm);
 
-            bubbleSorter.Sort(mm, comp);
-            bubbleSorter.Print(mas);
+            BubbleSorter.Sort(mas, comp, (int[] arr) => arr.Sum(), true);
+            BubbleSorter.Print(mas);
+
 
             MyCounter myCounter = new MyCounter();
 
             Worker worker1 = new Worker(myCounter, 1000);
             Worker worker2 = new Worker(myCounter, 1000);
-            Worker worker3 = new Worker(myCounter, 1000);
 
             myCounter.Ready += MyCounter_Ready;
-            myCounter.Start(5000);
             myCounter.Start(5000);
             myCounter.Start(5000);
             Console.ReadLine();

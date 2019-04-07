@@ -3,47 +3,84 @@ using System.Collections.Generic;
 
 namespace DelegatesConsoleApp
 {
-    public class BubbleSorter
+    public static class BubbleSorter
     {
-        private readonly int[,] matrix;
-        public BubbleSorter(int[,] matrix, IComparer<int> comparer, bool isAscending = true)
+        public static void Sort(int[,] matrix, IComparer<int> rowComparer, Func<int[], int> matrixRowAggregator, bool isAscending = true)
         {
-            this.matrix = matrix;
+            if (!IsValid(matrix))
+                throw new ArgumentException("Invalid matrix", "matrix");
 
-            Comparer<int>.Create((x, y) => x.CompareTo(y));
-        }
+            if(rowComparer == null)
+                throw new ArgumentException("Invalid row comparer", "rowComparer");
 
-        public bool IsValid(int[,] matrix)
-        {
-            return true;
-        }
+            if (matrixRowAggregator == null)
+                throw new ArgumentException("Invalid matrix row aggregate function", "matrixRowAggregator");
 
-        public void Sort(int[,] matrix, IComparer<int> comparer)
-        {
-            int rows = matrix.GetUpperBound(0) + 1;
-            int columns = matrix.Length / rows;
+            int rowLength = matrix.GetLength(0);
+            int colLength = matrix.GetLength(1);
 
-            for (int x = 0; x < rows; x++)
+            int[] rows = new int[rowLength];
+
+            for (int i = 0; i < rowLength; i++)
             {
-                for (int y = 0; y < columns; y++)
+                int[] row = new int[colLength];
+                for (int j = 0; j < colLength; j++)
                 {
-                    for (int i = 0; i < rows; i++)
+                    row[j] = matrix[i, j];
+                }
+
+                rows[i] = matrixRowAggregator(row);
+            }
+
+            for (int i = 0; i < rowLength; i++)
+            {
+                for (int j = 0; j < rowLength; j++)
+                {
+                    int comp;
+                    if (isAscending)
+                        comp = rowComparer.Compare(rows[i], rows[j]);
+                    else
+                        comp = rowComparer.Compare(rows[j], rows[i]);
+
+                    if (comp > 0)
                     {
-                        for (int j = 0; j < columns; j++)
-                        {
-                            if (comparer.Compare(matrix[i,j], matrix[x,y]) > 0)
-                            {
-                                int t = matrix[x,y];
-                                matrix[x,y] = matrix[i,j];
-                                matrix[i,j] = t;
-                            }
-                        }
+                        SwapRows(matrix, i, j);
+                        int tmp = rows[i];
+                        rows[i] = rows[j];
+                        rows[j] = tmp;
                     }
                 }
             }
         }
 
-        public void Print(int[,] matrix)
+        public static void SwapRows(int[,] matrix, int i, int j)
+        {
+            var intSize = sizeof(int);
+            var colLength = matrix.GetLength(1);
+
+            var temp = new int[colLength];
+
+            Buffer.BlockCopy(matrix, i * intSize * colLength, temp, 0, colLength * intSize);
+            Buffer.BlockCopy(matrix, j * colLength * intSize, matrix, i * intSize * colLength, colLength * intSize);
+            Buffer.BlockCopy(temp, 0, matrix, j * colLength * intSize, colLength * intSize);
+        }
+
+
+        public static bool IsValid(int[,] matrix)
+        {
+            if (matrix.Rank != 2)
+                return false;
+
+            int rowLength = matrix.GetLength(0);
+            int colLength = matrix.GetLength(1);
+
+            if (rowLength < 1 || colLength < 1)
+                return false;
+
+            return true;
+        }
+
+        public static void Print(int[,] matrix)
         {
             int rowLength = matrix.GetLength(0);
             int colLength = matrix.GetLength(1);
